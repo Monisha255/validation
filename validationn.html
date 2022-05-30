@@ -1,0 +1,216 @@
+<!DOCTYPE html>	
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+			var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
+			var $FullNameRegEx = /^([a-zA-Z ]{2,40})$/;
+			var $BankAccountNameRegEx = /^([a-zA-Z ]{2,60})$/;
+			var $PasswordRegEx = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,12}$/;
+
+			var $EmailIdRegEx = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,8}\b$/i;
+			var $ConNoRegEx = /^([0-9]{10})$/;
+			var $AgeRegEx = /^([0-9]{1,2})$/;
+			var $AadhaarNoRegEx = /^([0-9]{12})$/;
+			var $GSTNoRegEx=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+			var $IndianDrivingLicenseNoRegEx = /^([A-Z]{2,3}[-/0-9]{8,13})$/;
+			var $IndianVehicleRegNoRegEx = /^([A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{1,4})$/;
+			var $PincodeRegEx = /^[1-9][0-9]{5,6}$/;
+			var $PANNoRegEx = /^[A-Z]{3}[ABCFGHLJPT][A-Z][0-9]{4}[A-Z]$/;
+			var $IFSCCodeRegEx = /^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/;
+			var $BankAccountNoRegEx = /^([0-9]{9,18})$/;
+			var $PostTitleRegex =/^(.{30,300})$/;
+			var $PostDescRegex = /^(.{100,3000})$/;
+			var $LatitudeLongitude=/^(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,8})?|180(?:\.0{1,8})?)$/;
+
+			$(document).ready(function(){
+				
+				var txtNameFlag=false,txtContactNoFlag=false,txtEmailIdFlag=false,txtContactMsgFlag=false;				
+				$("#txtName").blur(function(){
+					$("#txtNameValidation").empty();
+					if($(this).val()=="" || $(this).val()==null)
+					{
+						$("#txtNameValidation").html("*Firstname required..!!");
+					}
+					else
+					{
+						if(!$(this).val().match($FNameLNameRegEx))
+						{
+							$("#txtNameValidation").html("*Invalid firstname..!!");
+						}
+					}
+				});
+				$("#txtName").keypress(function(e)
+				{
+					var flag=false;
+					$("#txtNameValidation").empty();
+					((e.which>=65 && e.which<=90) || (e.which>=97 && e.which<=122))
+					?flag=true
+					:(flag=false,$("#txtNameValidation").html("Invalid Keypress"))
+					return flag;
+				});
+
+				$("#txtContactNo").keypress(function(e)
+				{
+					var flag=false;
+					$("#txtContactNoValidation").empty();
+					(e.which>=48 && e.which<=57)
+					?flag=true
+					:(flag=false,$("#txtContactNoValidation").html("Invalid Keypress"))
+					return flag;
+				});
+				$("#txtContactNo").blur(function()
+				{
+					$("#txtContactNoValidation").empty();
+					if($(this).val()=="" || $(this).val()==null)
+					{
+						$("#txtContactNoValidation").html("*Contact no. required..!!");
+					}
+					else
+					{
+						if(!$(this).val().match($ConNoRegEx))
+						{
+							$("#txtContactNoValidation").html("*Invalid contact no..!!");
+						}
+					}
+				});
+				$("#txtEmailId").blur(function()
+				{
+					$("#txtEmailIdvalidatin").empty();
+					if($(this).val()==""||$(this).val()==null)
+					{
+						$("#txtEmailIdValidation").html("*Email Required..!!");
+					}
+					else
+					{
+						if(!$(this).val().match($EmailIdRegEx))
+						{
+							$("#txtEmailIdValidation").html("*Invalid Email Id..!!");
+						}
+					}
+				});
+				$("#txtContactMsg").blur(function()
+				{
+					$("#txtContactMsgValidation").empty();
+					if($(this).val()==""||$(this).val()==null)
+					{
+						$("#txtContactMsgValidation").html("*Contact Message Required..!!");
+					}
+					else
+					{
+						if(!$(this).val().length>3000)
+						{
+							$("#txtContactMsgValidation").html("*Invalid Message");
+						}
+					}
+				});
+				
+				$("#btnSub").click(function(){
+					
+					$("#txtNameValidation").empty();
+					if($("#txtName").val()=="" || $("#txtName").val()==null)
+					{
+						$("#txtNameValidation").html("*Firstname required..!!");
+						txtNameFlag=false;
+
+					}
+					else
+					{
+						if(!$("#txtName").val().match($FNameLNameRegEx))
+						{
+							$("#txtNameValidation").html("*Invalid firstname..!!");
+							txtNameFlag=false;
+						}
+						else
+						{
+							txtNameFlag=true;	
+						}
+					}
+					$("#txtContactNoValidation").empty();
+					if($("#txtContactNo").val()=="" || $("#txtContactNo").val()==null)
+					{
+						$("#txtContactNoValidation").html("*Contact no. required..!!");
+						txtContactNoFlag=false;
+					}
+					else
+					{
+						if(!$("#txtContactNo").val().match($ConNoRegEx))
+						{
+							$("#txtContactNoValidation").html("*Invalid contact no..!!");
+							txtContactNoFlag=false;
+						}
+						else
+						{
+							txtContactNoFlag=true;
+						}
+					}
+					$("#txtEmailIdvalidation").empty();
+					if($("#txtEmailId").val()==""||$("#txtEmailId").val()==null)
+					{
+						$("#txtEmailIdValidation").html("*Email Required..!!");
+						txtEmailIdFlag=false;
+					}
+					else
+					{
+						if(!$("#txtEmailId").val().match($EmailIdRegEx))
+						{
+							$("#txtEmailIdValidation").html("*Invalid Email Id..!!");
+							txtEmailIdFlag=false;
+						}
+						else
+						{
+							txtEmailIdFlag=true;
+						}
+					}
+					$("#txtContactMsgValidation").empty();
+					if($("#txtContactMsg").val()==""||$("#txtContactMsg").val()==null)
+					{
+						$("#txtContactMsgValidation").html("*Message Required..!!");
+						txtContactMsgFlag=false;
+					}
+					else
+					{	
+						if($("#txtContactMsg").val().length>3000)
+						{
+							$("#txtContactMsgValidation").html("*Invalid Message");
+							txtContactMsgFlag=false;
+						}
+						else
+						{
+							txtContactMsgFlag=true;
+						}
+					}	
+					if(txtNameFlag==true && txtContactNoFlag==true && txtEmailIdFlag==true && txtContactMsgFlag==true)
+					{
+						alert("Form Submitted Successfully.");
+					}
+					else
+					{
+						alert("Invalid Input");
+					}
+				});
+			});
+</script>
+		<style type="text/css">
+			small{color:rgb(26, 85, 8);}
+		</style>
+</head>
+<body>
+		<input type="text" id="txtName" style="width: 30%;height: 30px;"autofocus placeholder="Enter the name here.." maxlength="20"/><br/>
+		<small id="txtNameValidation"></small>
+		<hr/>
+		<input type="text" id="txtContactNo" style="width: 30%;height: 30px;" placeholder="Enter the contact no. here.." maxlength="10"/><br/>
+		<small id="txtContactNoValidation"></small>
+		<hr/>
+		<input type="text" id="txtEmailId" style="width: 30%;height: 30px;"placeholder="Enter the email id here.." maxlength="50"/><br/>
+		<small id="txtEmailIdValidation"></small>
+		<hr/>
+		<textarea rows="8" id="txtContactMsg" style="width: 30%;"placeholder="Enter the contact msg here.." maxlength="200"></textarea><br/>
+		<small id="txtContactMsgValidation"></small>	
+		<hr/>
+		<button id="btnSub">submit</button>
+</body>
+</html>
